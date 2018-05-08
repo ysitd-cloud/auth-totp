@@ -66,14 +66,13 @@ func (s *Server) validate(c *vodka.Context) {
 	}
 
 	t, err := time.Parse(time.RFC3339, req.Time)
-
-	if err := json.Unmarshal(body, &req); err != nil {
+	if err != nil {
 		s.Logger.WithField("endpoint", "validate").Error(err)
 		http.Error(c.Response, "error when parsing time", http.StatusUnprocessableEntity)
 		return
 	}
 
-	validate, err := s.Service.ValidatePasscode(c, req.Issuer, req.Username, req.Passcode, t.UTC())
+	validate, err := s.Service.ValidatePasscode(c, req.Issuer, req.Username, req.Passcode, t)
 	if err != nil {
 		s.Logger.WithField("endpoint", "validate").Error(err)
 		http.Error(c.Response, "error when processing", 530)

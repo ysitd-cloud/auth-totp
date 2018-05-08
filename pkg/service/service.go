@@ -8,14 +8,19 @@ import (
 	"github.com/pquerna/otp"
 	"github.com/pquerna/otp/totp"
 	"golang.org/x/crypto/bcrypt"
+	"golang.ysitd.cloud/log"
 )
 
 var validateOption = totp.ValidateOpts{
+	Period:    30,
+	Skew:      1,
+	Digits:    otp.DigitsSix,
 	Algorithm: otp.AlgorithmSHA256,
 }
 
 type Service struct {
-	Store *Store `inject:""`
+	Store  *Store     `inject:""`
+	Logger log.Logger `inject:"service logger"`
 }
 
 func (s *Service) IssueKey(ctx context.Context, issuer, username string) (url string, recover string, err error) {
@@ -55,6 +60,7 @@ func (s *Service) issueKey(ctx context.Context, issuer, username string, newIssu
 }
 
 func (s *Service) ValidatePasscode(ctx context.Context, issuer, username, passcode string, t time.Time) (validate bool, err error) {
+	s.Logger.Debugf("Validate passcode %s:%s@%s", username, passcode, issuer)
 	secret, err := s.Store.Get(ctx, issuer, username)
 	if err != nil {
 		return

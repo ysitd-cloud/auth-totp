@@ -24,5 +24,6 @@ func injectLogger(graph *inject.Graph) {
 		&inject.Object{Value: logger},
 		&inject.Object{Value: logger.WithField("source", "http"), Name: "http logger"},
 		&inject.Object{Value: logger.WithField("source", "grpc"), Name: "grpc logger"},
+		&inject.Object{Value: logger.WithField("source", "service"), Name: "service logger"},
 	)
 }
