@@ -31,6 +31,7 @@ func init() {
 
 	if err := graph.Populate(); err != nil {
 		logger.Error(err)
+		panic(err)
 	}
 }
 

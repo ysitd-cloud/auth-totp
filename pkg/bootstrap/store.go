@@ -12,6 +12,6 @@ import (
 func injectStore(graph *inject.Graph) {
 	graph.Provide(
 		&inject.Object{Value: db.NewOpener("postgres", os.Getenv("DB_URL"))},
-		&inject.Object{Value: inmem.NewLocked(16)},
+		&inject.Object{Value: inmem.NewLocked(16), Name: "cache"},
 	)
 }
