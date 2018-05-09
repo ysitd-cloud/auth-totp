@@ -15,7 +15,7 @@ var validateOption = totp.ValidateOpts{
 	Period:    30,
 	Skew:      1,
 	Digits:    otp.DigitsSix,
-	Algorithm: otp.AlgorithmSHA256,
+	Algorithm: otp.AlgorithmSHA1,
 }
 
 type Service struct {
@@ -31,7 +31,7 @@ func (s *Service) issueKey(ctx context.Context, issuer, username string, newIssu
 	key, err := totp.Generate(totp.GenerateOpts{
 		Issuer:      issuer,
 		AccountName: username,
-		Algorithm:   otp.AlgorithmSHA256,
+		Algorithm:   otp.AlgorithmSHA1,
 	})
 
 	if err != nil {
@@ -60,7 +60,7 @@ func (s *Service) issueKey(ctx context.Context, issuer, username string, newIssu
 }
 
 func (s *Service) ValidatePasscode(ctx context.Context, issuer, username, passcode string, t time.Time) (validate bool, err error) {
-	s.Logger.Debugf("Validate passcode %s:%s@%s", username, passcode, issuer)
+	s.Logger.Debugf("Validate passcode %s:%s@%s on %d", username, passcode, issuer, t.Unix())
 	secret, err := s.Store.Get(ctx, issuer, username)
 	if err != nil {
 		return
