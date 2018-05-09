@@ -11,4 +11,4 @@ FROM ysitd/binary
 
 COPY --from=builder /go/bin/totp /
 
-CMD ["/totp"w]
+CMD ["/totp"]
