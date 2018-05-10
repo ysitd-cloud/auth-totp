@@ -3,47 +3,29 @@ package main
 import (
 	"context"
 	"net/http"
-	"os"
-	"os/signal"
-	"syscall"
 	"time"
 
 	"code.ysitd.cloud/auth/totp/pkg/bootstrap"
+	"os"
 )
 
 func main() {
+	port := os.Getenv("PORT")
+
+	if port == "" {
+		port = "50051"
+	}
+
 	logger := bootstrap.GetMainLogger()
-	httpServer := http.Server{
-		Addr:    ":50050",
-		Handler: bootstrap.GetHttpServer(),
+	server := http.Server{Handler: bootstrap.GetMainHandler(), Addr: ":" + port}
+
+	logger.Debugf("Start HTTP Listen at %s", port)
+	if err := server.ListenAndServe(); err != nil {
+		logger.Error(err)
 	}
 
-	grpcServer := http.Server{
-		Addr:    ":50051",
-		Handler: bootstrap.GetGrpcServer(),
-	}
-
-	c := make(chan os.Signal)
-	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
-
-	go func() {
-		logger.Debugln("Start HTTP Listen")
-		if err := httpServer.ListenAndServe(); err != nil {
-			logger.Error(err)
-		}
-	}()
-
-	go func() {
-		logger.Debugln("Start Grpc Listen")
-		if err := grpcServer.ListenAndServe(); err != nil {
-			logger.Error(err)
-		}
-	}()
-
-	<-c
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	httpServer.Shutdown(ctx)
-	grpcServer.Shutdown(ctx)
+	server.Shutdown(ctx)
 }

@@ -3,6 +3,7 @@ package grpc
 import (
 	"context"
 	"net/http"
+	"sync"
 	"time"
 
 	"code.ysitd.cloud/auth/totp/pkg/service"
@@ -13,18 +14,17 @@ import (
 )
 
 type Service struct {
-	ready   bool
-	Logger  log.Logger       `inject:"grpc logger"`
-	Server  *grpc.Server     `inject:""`
-	Service *service.Service `inject:""`
+	bootstrap sync.Once
+	Logger    log.Logger       `inject:"grpc logger"`
+	Server    *grpc.Server     `inject:""`
+	Service   *service.Service `inject:""`
 }
 
 func (s *Service) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if !s.ready {
+	s.bootstrap.Do(func() {
 		s.Server.GetServiceInfo()
 		api.RegisterTotpServer(s.Server, s)
-		s.ready = true
-	}
+	})
 
 	s.Server.ServeHTTP(w, r)
 }
