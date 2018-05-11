@@ -3,7 +3,7 @@ package rest
 import (
 	"net/http"
 
-	"code.ysitd.cloud/auth/totp/pkg/service"
+	"app.ysitd/auth/totp/pkg/service"
 	"github.com/gorilla/handlers"
 	"github.com/tonyhhyip/vodka"
 	"golang.ysitd.cloud/log"

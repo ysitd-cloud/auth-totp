@@ -1,6 +1,6 @@
 FROM ysitd/dep AS builder
 
-WORKDIR /go/src/code.ysitd.cloud/auth/totp
+WORKDIR /go/src/app.ysitd/auth/totp
 
 COPY . .
 

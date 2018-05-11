@@ -3,9 +3,10 @@ package bootstrap
 import (
 	"net/http"
 
-	httpService "code.ysitd.cloud/auth/totp/pkg/http"
 	"github.com/facebookgo/inject"
 	"github.com/sirupsen/logrus"
+
+	httpService "app.ysitd/auth/totp/pkg/http"
 )
 
 var handler httpService.Handler

@@ -1,4 +1,4 @@
-go_import_path: code.ysitd.cloud/auth/totp
+go_import_path: app.ysitd/auth/totp
 
 sudo: false
 language: go

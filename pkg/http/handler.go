@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"code.ysitd.cloud/auth/totp/pkg/http/grpc"
-	"code.ysitd.cloud/auth/totp/pkg/http/rest"
+	"app.ysitd/auth/totp/pkg/http/grpc"
+	"app.ysitd/auth/totp/pkg/http/rest"
 )
 
 type Handler struct {

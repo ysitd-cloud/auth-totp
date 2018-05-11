@@ -3,10 +3,10 @@ package main
 import (
 	"context"
 	"net/http"
+	"os"
 	"time"
 
-	"code.ysitd.cloud/auth/totp/pkg/bootstrap"
-	"os"
+	"app.ysitd/auth/totp/pkg/bootstrap"
 )
 
 func main() {

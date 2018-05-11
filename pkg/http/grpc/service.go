@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"code.ysitd.cloud/auth/totp/pkg/service"
+	"app.ysitd/auth/totp/pkg/service"
 	"golang.ysitd.cloud/log"
 	"google.golang.org/grpc"
 
