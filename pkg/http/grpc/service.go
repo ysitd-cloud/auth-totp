@@ -4,13 +4,14 @@ import (
 	"context"
 	"net/http"
 	"sync"
-	"time"
 
-	"app.ysitd/auth/totp/pkg/service"
-	"golang.ysitd.cloud/log"
 	"google.golang.org/grpc"
 
+	"golang.ysitd.cloud/log"
+
 	api "code.ysitd.cloud/api/totp"
+
+	"app.ysitd/auth/totp/pkg/service"
 )
 
 type Service struct {
@@ -42,9 +43,7 @@ func (s *Service) IssueKey(ctx context.Context, in *api.IssueKeyRequest) (out *a
 }
 
 func (s *Service) Validate(ctx context.Context, in *api.ValidateRequest) (out *api.ValidateReply, err error) {
-	timestamp := in.Time
-	t := time.Unix(timestamp.Seconds, int64(timestamp.Nanos))
-	validate, err := s.Service.ValidatePasscode(ctx, in.Issuer, in.Username, in.Passcode, t)
+	validate, err := s.Service.ValidatePasscode(ctx, in.Issuer, in.Username, in.Passcode, *in.Time)
 	if err != nil {
 		return
 	}

@@ -4,8 +4,8 @@
 [[projects]]
   name = "code.ysitd.cloud/api/totp"
   packages = ["."]
-  revision = "defdc9809c7b91b8c6bbdf5a29e51eaefe3d52bb"
-  version = "1.0.0"
+  revision = "6f1389845cbd4e1915e086d95ef934bee42a44de"
+  version = "1.1.2"
 
 [[projects]]
   name = "github.com/boombuler/barcode"
@@ -37,7 +37,13 @@
 
 [[projects]]
   name = "github.com/gogo/protobuf"
-  packages = ["proto"]
+  packages = [
+    "gogoproto",
+    "proto",
+    "protoc-gen-gogo/descriptor",
+    "sortkeys",
+    "types"
+  ]
   revision = "1adfc126b41513cc696b209667c8656ea7aac67c"
   version = "v1.0.0"
 
@@ -121,7 +127,7 @@
     "unix",
     "windows"
   ]
-  revision = "7dfd1290c7917b7ba22824b9d24954ab3002fe24"
+  revision = "9950ad118b73f9207b991f01920a3509c68f7f2b"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -202,6 +208,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ced4adacd0a1ccdf9aa597e53b9daec096c0f2ecd0a187af7ee01c6189e9518c"
+  inputs-digest = "fd9c58e57ddbd7fcb48a48cd766b7d6baf446b83c4f2aa54c385b7e490d3091e"
   solver-name = "gps-cdcl"
   solver-version = 1
