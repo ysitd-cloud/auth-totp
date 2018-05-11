@@ -2,10 +2,10 @@
 
 
 [[projects]]
-  branch = "master"
   name = "code.ysitd.cloud/api/totp"
   packages = ["."]
   revision = "defdc9809c7b91b8c6bbdf5a29e51eaefe3d52bb"
+  version = "1.0.0"
 
 [[projects]]
   name = "github.com/boombuler/barcode"
@@ -202,6 +202,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "0a59705fdb96f64c552ac2df76225dc9858bd499275c6f03abef5eb43b5f2949"
+  inputs-digest = "59d4de81fc9dba45b859158f0e5376436fddde50be366e2fc7f2f2d580b343b6"
   solver-name = "gps-cdcl"
   solver-version = 1
